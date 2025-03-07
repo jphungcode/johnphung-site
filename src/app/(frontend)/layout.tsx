@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="relative">
-        <div className="absolute -z-10 inset-0 w-screen h-screen bg-[#5B4B8F] "></div>
+        <div className="absolute -z-10 inset-0 w-full h-full bg-[#5B4B8F] "></div>
         <Providers>
           <AdminBar
             adminBarProps={{
