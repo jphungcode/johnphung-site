@@ -6,12 +6,12 @@ import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
-
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import HomePage from '@/components/HomePage'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -65,8 +65,12 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout } = page
 
+  if (slug === 'home') {
+    return <HomePage />
+  }
+
   return (
-    <article className="pt-16 pb-24">
+    <article className="">
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
@@ -74,7 +78,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+      {layout && <RenderBlocks blocks={layout} />}
     </article>
   )
 }

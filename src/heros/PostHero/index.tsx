@@ -1,13 +1,13 @@
 import { formatDateTime } from 'src/utilities/formatDateTime'
 import React from 'react'
 
-import type { Post } from '@/payload-types'
+import type { Post, Project } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 
 export const PostHero: React.FC<{
-  post: Post
+  post: Post | Project
 }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
 
@@ -15,7 +15,33 @@ export const PostHero: React.FC<{
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
+    <div className="container md:pt-4 ">
+      <div className="max-w-[48rem] mx-auto flex flex-col gap-2">
+        <h1 className="text-4xl font-bold text-white">{title}</h1>
+        <div className="flex items-center justify-between mt-2">
+          {hasAuthors && (
+            <div className="flex items-center gap-1">
+              <p className="font-medium text-white">By</p>
+
+              <p className="text-white">{formatAuthors(populatedAuthors)}</p>
+            </div>
+          )}
+          {publishedAt && (
+            <time className="text-white" dateTime={publishedAt}>
+              {formatDateTime(publishedAt)}
+            </time>
+          )}
+        </div>
+        <div className="select-none overflow-hidden ">
+          {heroImage && typeof heroImage !== 'string' && (
+            <Media imgClassName="w-full object-contain rounded-lg" resource={heroImage} />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+  return (
+    <div className="">
       <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
         <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
           <div className="uppercase text-sm mb-6">
@@ -62,7 +88,7 @@ export const PostHero: React.FC<{
           </div>
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
+      <div className="select-none">
         {heroImage && typeof heroImage !== 'string' && (
           <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
         )}

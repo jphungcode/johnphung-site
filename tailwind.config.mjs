@@ -56,6 +56,8 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        'slate-gray': '#64748B', // Sidebar
+        'off-white': '#F1F5F9', // Main content
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
@@ -96,6 +98,8 @@ const config = {
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
+        roboto: ['Roboto', 'sans-serif'], // Primary font for general content
+        'fira-code': ['Fira Code', 'monospace'], // Secondary font for code/tech
       },
       keyframes: {
         'accordion-down': {

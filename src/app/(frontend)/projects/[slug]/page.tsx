@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
+//import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -8,7 +8,7 @@ import { draftMode } from 'next/headers'
 import React, { cache, Fragment } from 'react'
 import RichText from '@/components/RichText'
 
-import type { Category, Post } from '@/payload-types'
+import type { Project } from '@/payload-types'
 
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -25,8 +25,8 @@ import {
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
+  const projects = await payload.find({
+    collection: 'projects',
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -36,7 +36,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
+  const params = projects.docs.map(({ slug }) => {
     return { slug }
   })
 
@@ -49,62 +49,50 @@ type Args = {
   }>
 }
 
-export default async function Post({ params: paramsPromise }: Args) {
+export default async function Project({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+  const url = '/projects/' + slug
+  const project = await queryPostBySlug({ slug })
 
-  if (!post) return <PayloadRedirects url={url} />
+  if (!project) return <PayloadRedirects url={url} />
 
   return (
-    <article className="md:py-12 ">
+    <article className="md:py-12">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 
       {draft && <LivePreviewListener />}
+
       <div className="container">
         <div className="max-w-[48rem] mx-auto">
           <Breadcrumb className="py-4 md:py-0 md:px-0">
             <BreadcrumbList>
               <BreadcrumbItem className="text-white">
-                <BreadcrumbLink href="/posts">Posts</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              {post.categories?.map((cat) => {
-                const { slug, title } = cat as Category
-                return (
-                  <Fragment key={slug}>
-                    <BreadcrumbItem className="text-white">
-                      <BreadcrumbLink href={`/posts?category=${slug}`}>{title}</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                  </Fragment>
-                )
-              })}
-
-              <BreadcrumbItem className="text-white">
-                <BreadcrumbPage className="text-white">{post.title}</BreadcrumbPage>
+                <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </div>
 
-      <PostHero post={post} />
+      <PostHero post={project} />
 
-      <div className="flex flex-col items-center gap-4 mt-4">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
+      <div className="flex flex-col items-center gap-4 pt-8">
+        <div className="">
+          <RichText
+            className="max-w-[48rem] mx-auto container py-4 md:p-10 bg-white md:rounded-lg"
+            data={project.content}
+            enableGutter={false}
+          />
+          {/* {project.relatedPosts && project.relatedPosts.length > 0 && (
             <RelatedPosts
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              relationTo="posts"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+              docs={project.relatedPosts.filter((post) => typeof post === 'object')}
             />
-          )}
+          )} */}
         </div>
       </div>
     </article>
@@ -113,9 +101,9 @@ export default async function Post({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
+  const project = await queryPostBySlug({ slug })
 
-  return generateMeta({ doc: post })
+  return generateMeta({ doc: project })
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
@@ -124,7 +112,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'projects',
     draft,
     limit: 1,
     overrideAccess: draft,
