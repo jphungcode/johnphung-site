@@ -15,13 +15,13 @@ export const CollectionArchive: React.FC<Props> = (props) => {
   return (
     <div className={cn('container')}>
       <div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 divide-y">
           {posts?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="" key={result.slug}>
                   <Card
-                    className="h-full md:grid md:grid-cols-[200px_auto] md:gap-4"
+                    className="h-full md:grid md:grid-cols-[200px_auto] md:gap-4 mt-4"
                     doc={result}
                     relationTo={relationTo}
                     showCategories

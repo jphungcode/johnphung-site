@@ -46,6 +46,7 @@ export default async function Page({
     depth: 1, // Ensure categories are populated
     limit: 12,
     page: page,
+    sort: '-publishedAt',
     overrideAccess: false,
     where:
       categorySlug && category
@@ -66,7 +67,7 @@ export default async function Page({
   })
 
   return (
-    <div className="min-h-screen md:pt-12">
+    <div className="min-h-screen md:py-12">
       <PageClient />
       <div className="container">
         <div className="prose dark:prose-invert max-w-none flex items-center justify-between">

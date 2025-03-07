@@ -24,12 +24,12 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
   }, [])
 
   if (resource && typeof resource === 'object') {
-    const { filename } = resource
+    //const { filename } = resource
 
     return (
       <video
         autoPlay
-        className={cn(videoClassName)}
+        className={cn(videoClassName, 'w-full')}
         controls={false}
         loop
         muted
@@ -37,7 +37,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
         playsInline
         ref={videoRef}
       >
-        <source src={`${getClientSideURL()}/media/${filename}`} />
+        <source src={`${getClientSideURL()}${resource.url}`} />
       </video>
     )
   }
