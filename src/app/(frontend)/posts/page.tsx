@@ -67,7 +67,7 @@ export default async function Page({
   })
 
   return (
-    <div className="min-h-screen md:py-12">
+    <div className="min-h-screen py-6 md:py-12">
       <PageClient />
       <div className="container">
         <div className="prose dark:prose-invert max-w-none flex items-center justify-between">

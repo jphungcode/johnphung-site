@@ -66,10 +66,10 @@ export default async function Page({
   })
 
   return (
-    <div className="min-h-screen md:py-12">
+    <div className="min-h-screen py-6 md:py-12">
       <PageClient />
       <div className="container">
-        <div className="prose dark:prose-invert max-w-none flex items-center justify-between ">
+        <div className="prose dark:prose-invert max-w-none flex gap-2 md:items-center justify-between ">
           <h1 className="text-white">Projects</h1>
           <CategoryFilter slug="projects" categories={categoriesResult.docs} />
         </div>

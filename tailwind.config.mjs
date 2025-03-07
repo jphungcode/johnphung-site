@@ -56,6 +56,7 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        'energy-green': 'rgb(158, 255, 0)',
         'slate-gray': '#64748B', // Sidebar
         'off-white': '#F1F5F9', // Main content
         accent: {

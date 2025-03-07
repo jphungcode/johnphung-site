@@ -38,7 +38,7 @@ export const Card: React.FC<{
       <div className="relative w-full">
         {!metaImage && <div className="">No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
-          <Media className="" imgClassName="rounded-lg" resource={metaImage} size="" />
+          <Media className="px-4 md:p-0" imgClassName="rounded-lg" resource={metaImage} size="" />
         )}
       </div>
       <div className="p-4 md:p-0 flex flex-col gap-1">

@@ -40,7 +40,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="relative">
-        <div className="absolute -z-10 inset-0 w-full h-full bg-[#5B4B8F] "></div>
+        <div
+          className="absolute -z-10 inset-0 w-full h-full "
+          style={{
+            backgroundImage:
+              'radial-gradient(circle, rgba(63, 36, 233, 0.85) 0%, rgba(112, 0, 255, 0.9) 100%), url(./background.webp)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            transform: 'translate3d(0px, 0px, -500px)',
+          }}
+        ></div>
         <Providers>
           <AdminBar
             adminBarProps={{

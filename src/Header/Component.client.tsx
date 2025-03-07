@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/sheet'
 import { HeaderNav } from './Nav'
 import { CMSLink } from '@/components/Link'
+import { Separator } from '@/components/ui/separator'
 
 interface HeaderClientProps {
   data: Header
@@ -22,40 +23,43 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
-  const [theme, setTheme] = useState<string | null>(null)
-  const { headerTheme, setHeaderTheme } = useHeaderTheme()
+  // const [theme, setTheme] = useState<string | null>(null)
+  // const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const [open, setOpen] = useState<boolean>(false)
 
-  useEffect(() => {
-    setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  // useEffect(() => {
+  //   setHeaderTheme(null)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pathname])
 
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  // useEffect(() => {
+  //   if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [headerTheme])
 
   return (
     <>
-      <div className="sticky top-0 left-0 md:hidden pl-4 pt-4 " style={{ zIndex: 40 }}>
+      <header className="sticky top-0 left-0 right-0 md:hidden z-10">
         <Sheet onOpenChange={setOpen} open={open}>
-          <SheetTrigger className="">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="white"
-              className="size-10"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+          <SheetTrigger className="w-full py-2 px-4 bg-[rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="white"
+                className="size-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+              <span className="font-fira-code font-bold text-2xl text-white">JP</span>
+            </div>
           </SheetTrigger>
           <SheetContent className="bg-gray-100">
             <SheetHeader>
@@ -75,6 +79,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   )
                 })}
               </div>
+              <p className="font-fira-code">Get in touch via my socials!</p>
               <div className="flex gap-4 ">
                 <a
                   href="https://x.com/thesilentjp"
@@ -118,13 +123,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   </svg>
                 </a>
               </div>
+              <Separator />
               <div className="">
                 <p className="font-roboto">Built with ❤️ and ☕</p>
+                <p className="text-sm text-gray-500">Next.js & PayloadCms</p>
               </div>
             </nav>
           </SheetContent>
         </Sheet>
-      </div>
+      </header>
 
       <header className="hidden md:sticky top-0 left-0 md:flex md:absolute pl-4 md:py-12 flex-col justify-between h-screen">
         <div className="flex justify-between">
