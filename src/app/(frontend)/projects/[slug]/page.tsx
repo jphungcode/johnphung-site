@@ -83,7 +83,7 @@ export default async function Project({ params: paramsPromise }: Args) {
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="">
           <RichText
-            className="max-w-[48rem] mx-auto container py-4 md:p-10 bg-white md:rounded-lg"
+            className="max-w-[48rem] mx-auto container py-4 md:p-10 bg-white md:rounded-lg text-black"
             data={project.content}
             enableGutter={false}
           />

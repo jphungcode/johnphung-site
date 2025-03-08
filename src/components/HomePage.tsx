@@ -19,7 +19,7 @@ const HomePage = (props: Props) => {
         projects to bring ideas to life.
       </p>
 
-      <Button asChild className="my-8 py-6 md:w-[250px] " size="lg">
+      <Button asChild className="my-8 py-6 md:w-[250px] bg-gray-900 " size="lg">
         <Link href="/projects" className="text-xl text-white flex gap-2 ">
           <span className="font-fira-code text-2xl ">See My Work</span>
           <svg

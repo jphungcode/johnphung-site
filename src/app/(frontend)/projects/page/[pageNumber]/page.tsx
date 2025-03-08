@@ -8,6 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
+import { Category } from '@/payload-types'
 
 export const revalidate = 600
 
@@ -15,9 +16,10 @@ type Args = {
   params: Promise<{
     pageNumber: string
   }>
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function Page({ params: paramsPromise }: Args) {
+export default async function Page({ params: paramsPromise, searchParams }: Args) {
   const { pageNumber } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
@@ -25,12 +27,40 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
+  const q = await searchParams
+
+  // Access query params directly from searchParams
+  const categorySlug = typeof q?.category === 'string' ? q.category : undefined
+  const page = typeof q?.page === 'string' ? parseInt(q.page, 10) || 1 : 1
+
+  // Fetch categories
+  const categoriesResult = await payload.find({
+    collection: 'project-categories',
+    depth: 0,
+    limit: 50, // Adjust as needed
+    overrideAccess: false,
+  })
+
+  const categories = categoriesResult.docs as Category[]
+
+  // Find category ID from slug if provided
+  const category = categorySlug ? categories.find((cat) => cat.slug === categorySlug) : undefined
+
   const projects = await payload.find({
     collection: 'projects',
     depth: 1,
     limit: 12,
+    sort: '-publishedAt',
     page: sanitizedPageNumber,
     overrideAccess: false,
+    where:
+      categorySlug && category
+        ? {
+            categories: {
+              equals: category.id, // Still use ID internally for Payload query
+            },
+          }
+        : undefined,
   })
 
   return (

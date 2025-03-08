@@ -40,27 +40,30 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <>
-      <header className="sticky top-0 left-0 right-0 md:hidden z-10">
+      <header className="sticky fixed top-0 left-0 right-0 md:hidden">
         <Sheet onOpenChange={setOpen} open={open}>
-          <SheetTrigger className="w-full py-2 px-4 bg-[rgba(0,0,0,0.8)]">
-            <div className="flex items-center justify-between ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="white"
-                className="size-10"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-              <span className="font-fira-code font-bold text-2xl text-white">JP</span>
-            </div>
-          </SheetTrigger>
+          <div className="flex items-center px-4  py-2 justify-between bg-[rgba(0,0,0,0.8)]">
+            <SheetTrigger className="w-full  ">
+              <div className="flex items-center justify-between ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="white"
+                  className="size-10"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </div>
+            </SheetTrigger>
+            <span className="font-fira-code font-bold text-2xl text-white">JP</span>
+          </div>
+
           <SheetContent className="bg-gray-100">
             <SheetHeader>
               <SheetTitle className="text-left font-fira-code">Menu</SheetTitle>
@@ -72,7 +75,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     <CMSLink
                       key={i}
                       onClick={() => setOpen(false)}
-                      className="text-xl"
+                      className="text-xl text-black"
                       {...link}
                       appearance="link"
                     />
@@ -133,7 +136,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         </Sheet>
       </header>
 
-      <header className="hidden md:sticky top-0 left-0 md:flex md:absolute pl-4 md:py-12 flex-col justify-between h-screen">
+      <header className="hidden md:sticky md:top-0 md:left-0 md:flex md:absolute pl-4 md:py-12 flex-col justify-between h-screen">
         <div className="flex justify-between">
           <HeaderNav data={data} />
         </div>
