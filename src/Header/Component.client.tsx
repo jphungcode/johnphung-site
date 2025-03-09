@@ -57,7 +57,7 @@ const MobileMenu = ({ data }: HeaderClientProps) => {
 
       <SheetContent className="bg-gray-100">
         <SheetHeader>
-          <SheetTitle className="text-left font-fira-code">Menu</SheetTitle>
+          <SheetTitle className="text-left font-fira-code text-black">Menu</SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-4 justify-between ">
           <div className="flex flex-col justify-between py-8 gap-2">
