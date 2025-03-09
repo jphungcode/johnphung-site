@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favicon.png" rel="icon" sizes="32x32" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -57,10 +57,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
           <div className="">
-            <div className="grid md:grid-cols-[200px_auto] max-w-6xl mx-auto relative">
-              <div className="">
-                <Header />
-              </div>
+            <div className="md:grid md:grid-cols-[200px_auto] max-w-6xl mx-auto relative">
+              <Header />
 
               <div className="md:col-start-2 ">{children}</div>
             </div>

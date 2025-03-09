@@ -90,7 +90,7 @@ export const Card: React.FC<{
               return <div key={author.name}>{author.name}</div>
             })}
             <span>✪</span>
-            <span>{parseISOToDDMMYYYY(publishedAt as string)}</span>
+            {publishedAt && <span>{parseISOToDDMMYYYY(publishedAt as string)}</span>}
           </div>
 
           <div className="">

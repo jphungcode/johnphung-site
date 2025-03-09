@@ -279,7 +279,6 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
-  _key?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -293,7 +292,6 @@ export interface Media {
   focalY?: number | null;
   sizes?: {
     thumbnail?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -302,7 +300,6 @@ export interface Media {
       filename?: string | null;
     };
     square?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -311,7 +308,6 @@ export interface Media {
       filename?: string | null;
     };
     small?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -320,7 +316,6 @@ export interface Media {
       filename?: string | null;
     };
     medium?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -329,7 +324,6 @@ export interface Media {
       filename?: string | null;
     };
     large?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -338,7 +332,6 @@ export interface Media {
       filename?: string | null;
     };
     xlarge?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -347,7 +340,6 @@ export interface Media {
       filename?: string | null;
     };
     og?: {
-      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -793,6 +785,15 @@ export interface ProjectCategory {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  parent?: (number | null) | ProjectCategory;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | ProjectCategory;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -816,6 +817,10 @@ export interface Redirect {
       | ({
           relationTo: 'posts';
           value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: number | Project;
         } | null);
     url?: string | null;
   };
@@ -849,10 +854,15 @@ export interface Search {
   id: number;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: number | Post;
-  };
+  doc:
+    | {
+        relationTo: 'posts';
+        value: number | Post;
+      }
+    | {
+        relationTo: 'projects';
+        value: number | Project;
+      };
   slug?: string | null;
   meta?: {
     title?: string | null;
@@ -1262,7 +1272,6 @@ export interface ProjectsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
-  _key?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1280,7 +1289,6 @@ export interface MediaSelect<T extends boolean = true> {
         thumbnail?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1291,7 +1299,6 @@ export interface MediaSelect<T extends boolean = true> {
         square?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1302,7 +1309,6 @@ export interface MediaSelect<T extends boolean = true> {
         small?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1313,7 +1319,6 @@ export interface MediaSelect<T extends boolean = true> {
         medium?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1324,7 +1329,6 @@ export interface MediaSelect<T extends boolean = true> {
         large?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1335,7 +1339,6 @@ export interface MediaSelect<T extends boolean = true> {
         xlarge?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1346,7 +1349,6 @@ export interface MediaSelect<T extends boolean = true> {
         og?:
           | T
           | {
-              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -1384,6 +1386,15 @@ export interface ProjectCategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1816,7 +1827,7 @@ export interface BannerBlock {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
+  language?: ('typescript' | 'javascript' | 'css' | 'python' | 'swift') | null;
   code: string;
   id?: string | null;
   blockName?: string | null;
