@@ -19,6 +19,7 @@ const nextConfig = {
         }
       }),
     ],
+    domains: ['https://isvcequzyfffkqnmvwcz.supabase.co'],
   },
   reactStrictMode: true,
   redirects,

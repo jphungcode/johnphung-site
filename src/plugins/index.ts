@@ -94,6 +94,12 @@ export const plugins: Plugin[] = [
   payloadCloudPlugin(),
   s3Storage({
     collections: {
+      // media: {
+      //   disablePayloadAccessControl: true,
+      //   generateFileURL: (args: any) => {
+      //     return `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${args.filename}`
+      //   },
+      // },
       media: true,
     },
     clientUploads: true,

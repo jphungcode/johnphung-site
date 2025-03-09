@@ -56,6 +56,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .join(', ')
 
   if (!width) return null
+  console.log(resource)
   return (
     <picture>
       <NextImage
